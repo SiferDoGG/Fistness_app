@@ -1,10 +1,6 @@
 from fastapi import APIRouter
 
-router = APIRouter(
-    prefix="/auth",
-    tags=["auth"],
-    description="Маршруты для аутентификации и управления пользователями",
-)
+router = APIRouter(prefix="/auth", tags=["auth"])
 
 
 @router.post(

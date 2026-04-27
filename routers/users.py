@@ -1,10 +1,6 @@
 from fastapi import APIRouter
 
-router = APIRouter(
-    prefix="/users",
-    tags=["users"],
-    description="Маршруты для управления пользователями",
-)
+router = APIRouter(prefix="/users", tags=["users"])
 
 
 @router.get(

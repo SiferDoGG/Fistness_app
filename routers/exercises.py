@@ -1,10 +1,6 @@
 from fastapi import APIRouter
 
-router = APIRouter(
-    prefix="/exercises",
-    tags=["exercises"],
-    description="Маршруты для управления упражнениями",
-)
+router = APIRouter(prefix="/exercises", tags=["exercises"])
 
 
 @router.get(

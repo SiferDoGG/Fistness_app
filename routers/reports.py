@@ -1,8 +1,6 @@
 from fastapi import APIRouter
 
-router = APIRouter(
-    prefix="/reports", tags=["reports"], description="Маршруты для управления отчётами"
-)
+router = APIRouter(prefix="/reports", tags=["reports"])
 
 
 @router.get(
