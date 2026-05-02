@@ -3,7 +3,7 @@ from core.security import hash_password, verify_password
 from fastapi import HTTPException
 
 
-async def register_user(db, email: str, password: str):
+async def register_user(db, username: str, email: str, password: str):
     existing_user = await get_user_by_email(db, email)
 
     if existing_user:
@@ -11,7 +11,7 @@ async def register_user(db, email: str, password: str):
 
     hashed = hash_password(password)
 
-    return await create_user(db, email, hashed)
+    return await create_user(db, username, email, hashed)
 
 
 async def authenticate_user(db, email: str, password: str):
