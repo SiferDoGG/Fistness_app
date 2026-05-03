@@ -3,6 +3,7 @@ venv/
 env/
 .venv/
 .env/
+*.env
 
 # Байт‑код Python
 __pycache__/
