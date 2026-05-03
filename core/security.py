@@ -35,6 +35,16 @@ def create_access_token(data: dict) -> str:
     return encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
 
 
+def create_refresh_token(data: dict) -> str:
+    to_encode = data.copy()
+
+    expire = datetime.now(timezone.utc) + timedelta(days=7)
+
+    to_encode.update({"exp": expire})
+
+    return encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
+
+
 # ---------------- CURRENT USER ----------------
 
 
