@@ -1,5 +1,10 @@
 from repositories.user_repo import get_user_by_email, create_user
-from core.security import hash_password, verify_password, create_access_token
+from core.security import (
+    create_refresh_token,
+    hash_password,
+    verify_password,
+    create_access_token,
+)
 from fastapi import HTTPException
 
 
@@ -20,6 +25,13 @@ async def login(db, email: str, password: str):
     if not user or not verify_password(password, user.password):
         raise HTTPException(status_code=401, detail="Invalid credentials")
 
-    token = create_access_token({"sub": str(user.id)})
+    access_token = create_access_token({"sub": str(user.id)})
+    refresh_token = create_refresh_token({"sub": str(user.id)})
 
-    return {"access_token": token, "token_type": "bearer"}
+    await create_refresh_token(db, refresh_token, user.id)
+
+    return {
+        "access_token": access_token,
+        "refresh_token": refresh_token,
+        "token_type": "bearer",
+    }
