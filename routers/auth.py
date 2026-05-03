@@ -22,6 +22,15 @@ async def login():
 
 
 @router.post(
+    "/refresh",
+    summary="Обновление токена доступа",
+    description="Использует рефреш токен для получения нового токена доступа",
+)
+async def refresh():
+    pass
+
+
+@router.post(
     "/logout",
     summary="Выход из системы",
     description="Завершает сессию пользователя",
