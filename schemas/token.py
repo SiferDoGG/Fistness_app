@@ -1,6 +1,4 @@
-from pydantic import BaseModel
-from datetime import datetime
-
+from pydantic import BaseModel, ConfigDict
 
 class RefreshTokenBase(BaseModel):
     token: str
@@ -14,5 +12,4 @@ class RefreshTokenCreate(RefreshTokenBase):
 class RefreshTokenRead(RefreshTokenBase):
     id: int
 
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True)
