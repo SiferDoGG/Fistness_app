@@ -1,4 +1,5 @@
 from repositories.user_repo import get_user_by_email, create_user
+from repositories.token_repo import create_refresh_token as save_refresh_token
 from core.security import (
     create_refresh_token,
     hash_password,
@@ -28,7 +29,7 @@ async def login(db, email: str, password: str):
     access_token = create_access_token({"sub": str(user.id)})
     refresh_token = create_refresh_token({"sub": str(user.id)})
 
-    await create_refresh_token(db, refresh_token, user.id)
+    await save_refresh_token(db, refresh_token, user.id)
 
     return {
         "access_token": access_token,
