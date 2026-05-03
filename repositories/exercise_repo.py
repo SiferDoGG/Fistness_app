@@ -15,7 +15,11 @@ async def get_exercise_by_id(db: AsyncSession, exercise_id: int):
 
 async def create_exercise(db: AsyncSession, name: str, description: str):
     exercise = Exercise(name=name, description=description)
-    db.add(exercise)
-    await db.commit()
-    await db.refresh(exercise)
+    try:
+        db.add(exercise)
+        await db.commit()
+        await db.refresh(exercise)
+    except Exception:
+        await db.rollback()
+        raise
     return exercise
