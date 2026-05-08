@@ -13,8 +13,8 @@ async def get_exercise_by_id(db: AsyncSession, exercise_id: int):
     return result.scalar_one_or_none()
 
 
-async def create_exercise(db: AsyncSession, name: str, description: str):
-    exercise = Exercise(name=name, description=description)
+async def create_exercise(db: AsyncSession, exercise_data: dict):
+    exercise = Exercise(**exercise_data)
     try:
         db.add(exercise)
         await db.commit()
@@ -23,3 +23,13 @@ async def create_exercise(db: AsyncSession, name: str, description: str):
         await db.rollback()
         raise
     return exercise
+
+
+async def get_exercise_by_id(db: AsyncSession, exercise_id: int):
+    result = await db.execute(select(Exercise).where(Exercise.id == exercise_id))
+    return result.scalar_one_or_none()
+
+
+async def get_exercises(db: AsyncSession):
+    result = await db.execute(select(Exercise))
+    return result.scalars().all()
