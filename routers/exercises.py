@@ -5,7 +5,12 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from dependencies.db import get_db
 from schemas.exercise import ExerciseCreate, ExerciseRead
-from services.exercise_service import create_exercise_service, get_exercises_service
+from services.exercise_service import (
+    create_exercise_service,
+    get_exercise_service,
+    get_exercise_service,
+    get_exercises_service,
+)
 
 router = APIRouter(prefix="/exercises", tags=["exercises"])
 
@@ -35,5 +40,6 @@ async def create_exercise(payload: ExerciseCreate, db: AsyncSession = Depends(ge
     summary="Получить информацию об упражнении",
     description="Возвращает информацию об указанном упражнении",
 )
-async def get_exercise(id: int):
-    pass
+async def get_exercise(id: int, db: AsyncSession = Depends(get_db)):
+    result = await get_exercise_service(db, id)
+    return result
