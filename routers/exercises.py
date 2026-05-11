@@ -26,8 +26,8 @@ async def get_exercises(db: AsyncSession = Depends(get_db)):
     description="Создаёт новое упражнение в системе",
     response_model=ExerciseRead,
 )
-async def create_exercise(db: AsyncSession = Depends(get_db)):
-    pass
+async def create_exercise(payload: ExerciseCreate, db: AsyncSession = Depends(get_db)):
+    return await create_exercise_service(db, payload)
 
 
 @router.get(
