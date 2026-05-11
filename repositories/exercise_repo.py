@@ -23,3 +23,8 @@ async def create_exercise(db: AsyncSession, exercise_data: dict):
         await db.rollback()
         raise
     return exercise
+
+
+async def get_exercise_by_name(db: AsyncSession, name: str):
+    result = await db.execute(select(Exercise).where(Exercise.name == name))
+    return result.scalar_one_or_none()
