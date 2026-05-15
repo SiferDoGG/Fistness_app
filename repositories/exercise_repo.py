@@ -3,7 +3,7 @@ from sqlalchemy import select
 from models.exercise import Exercise
 
 
-async def get_all_exercises(db: AsyncSession):
+async def get_exercises(db: AsyncSession):
     result = await db.execute(select(Exercise))
     return result.scalars().all()
 

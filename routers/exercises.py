@@ -8,7 +8,6 @@ from schemas.exercise import ExerciseCreate, ExerciseRead
 from services.exercise_service import (
     create_exercise_service,
     get_exercise_service,
-    get_exercise_service,
     get_exercises_service,
 )
 
@@ -39,6 +38,7 @@ async def create_exercise(payload: ExerciseCreate, db: AsyncSession = Depends(ge
     "/{id}",
     summary="Получить информацию об упражнении",
     description="Возвращает информацию об указанном упражнении",
+    response_model=ExerciseRead,
 )
 async def get_exercise(id: int, db: AsyncSession = Depends(get_db)):
     result = await get_exercise_service(db, id)

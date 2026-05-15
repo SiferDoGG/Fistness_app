@@ -13,7 +13,7 @@ async def create_exercise_service(db, data):
         raise HTTPException(
             status_code=400, detail="Exercise with this name already exists"
         )
-    return await create_exercise(db, data)
+    return await create_exercise(db, data.model_dump())
 
 
 async def get_exercises_service(db):
