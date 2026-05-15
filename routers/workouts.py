@@ -1,4 +1,8 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, Depends
+from sqlalchemy.ext.asyncio import AsyncSession
+from dependencies.db import get_db
+from schemas.enum import WorkoutStatus
+from services.workout_service import get_workouts_service
 
 router = APIRouter(prefix="/workouts", tags=["workouts"])
 
@@ -8,8 +12,13 @@ router = APIRouter(prefix="/workouts", tags=["workouts"])
     summary="Получить список тренировок",
     description="Возвращает список доступных тренировок",
 )
-async def get_workouts():
-    pass
+async def get_workouts(
+    limit: int = 10,
+    offset: int = 0,
+    status: WorkoutStatus | None = None,
+    db: AsyncSession = Depends(get_db),
+):
+    return await get_workouts_service(db, limit, offset, status)
 
 
 @router.post(
